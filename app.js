@@ -136,7 +136,12 @@ app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
 
         console.log(newQRcode);
 
-        const qrCodeData = `https://localhost:4090/${newQRcode.id}`;
+        let qrCodeData;
+        if (externalUrl) {
+            qrCodeData = `${externalUrl}/${newQRcode.id}`;
+        } else {
+            qrCodeData = `https://localhost:4090/${newQRcode.id}`;
+        }
         const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
 
         return res.json({ ticketId: newQRcode.id, qrCodeImageUrl });
