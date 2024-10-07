@@ -2,7 +2,9 @@ const express = require('express');
 const fs = require('fs');
 const https = require('https');
 const app = express();
-const PORT = 4090;
+
+const externalUrl = process.env.RENDER_EXTERNAL_URL;
+const PORT = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 4090;
 
 const axios = require('axios');
 const qs = require('qs');
@@ -86,7 +88,7 @@ const config = {
     authRequired: false,
     idpLogout: true,
     secret: process.env.SECRET,
-    baseURL: `https://localhost:${PORT}`,
+    baseURL: externalUrl || `https://localhost:${PORT}`,
     clientID: process.env.CLIENT_ID,
     issuerBaseURL: `${process.env.AUTH_SERVER}`,
     clientSecret: process.env.CLIENT_SECRET,
@@ -181,10 +183,17 @@ app.get("/:id", requiresAuth(), async (req, res) => {
 
 
 // pokretanje servera
-https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
-}, app)
-    .listen(PORT, function () {
-        console.log(`Server running at https://localhost:${PORT}/`);
+if (externalUrl) {
+    const hostname = '0.0.0.0';
+    app.listen(PORT, hostname, () => {
+        console.log(`Server locally running at http://${hostname}:${PORT}/ and from outside on ${externalUrl}`);
     });
+} else {
+    https.createServer({
+        key: fs.readFileSync('server.key'),
+        cert: fs.readFileSync('server.cert')
+    }, app)
+        .listen(port, function () {
+            console.log(`Server running at https://localhost:${PORT}/`);
+        });
+}
