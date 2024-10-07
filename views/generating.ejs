@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR code generator</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="gen-main-container">
+        <div class="form-container">
+            <p>Upiši podatke i generiraj QR kod</p>
+            <div class="input-align">
+                <label for="vatin">OIB:</label>
+                <input type="text" id="vatin" name="vatin" maxlength="11" required>
+                <label for="first_name">Ime:</label>
+                <input type="text" id="first_name" name="firsta_nme" required>
+                <label for="last_name">Prezime:</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
+            <button type="button" id="generate-button">Generiraj</button>
+            <div id="qr-code-container" class="qr-code-container"></div>
+        </div>
+    </div>
+    <script src="/scripts/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR code generator</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="info-container">
+            <div class="ticket-info">
+                <h1>Info o ulaznici:</h1>
+                <h2>OIB</h2>
+                <p><%= ticket.vatin %></p>
+                <h2>Ime</h2>
+                <p><%= ticket.first_name %></p>
+                <h2>Prezime</h2>
+                <p><%= ticket.last_name %></p>
+                <h2>Vrijeme kreiranja</h2>
+                <p><%= formattedDate %></p>
+            </div>
+            <div class="user-info">
+                <h1>Trenutno prijavljeni korisnik:</h1>
+                <p><%= userName %></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
