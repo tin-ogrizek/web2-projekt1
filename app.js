@@ -120,6 +120,11 @@ app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
         return res.status(400).json({ error: "Nisu ispunjeni svi traženi podaci: OIB, Ime, Prezime" });
     }
 
+    const isNumeric = /^\d+$/.test(vatin);
+    if (!isNumeric) {
+        return res.status(400).json({ error: "OIB smije imati samo brojeve" });
+    }
+
     try {
         const ticketCount = await Ticket.count({ where: { vatin } });
 

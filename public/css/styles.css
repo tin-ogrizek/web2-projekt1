@@ -20,8 +20,8 @@
     flex-direction: column;
     box-shadow: 0 0 0.3em 1px rgba(0, 0, 0, 0.5);
     background: #08608d;
-    height: 50vh;
-    width: 40vw;
+    height: 30em;
+    width: 50em;
     border-radius: 15px;
     padding: 2vw;
 }
@@ -34,22 +34,22 @@
 }
 
 .ticket-container h3 {
-    font-size: 2vw;
-    margin-bottom: 2vh;
+    font-size: 2.7em;
+    margin-bottom: 1em;
 }
 
 .ticket-container p {
-    font-size: 3vw;
-    margin-bottom: 7vh;
+    font-size: 5em;
+    margin-bottom: 0.5em;
 }
 
 .button {
     background-color: #036edf;
-    padding: 20px 30px;
+    padding: 1em 1.2em;
     border: none;
     box-shadow: 0 0 0.3em 1px rgba(0, 0, 0, 0.5);
     border-radius: 25px;
-    font-size: 3vh;
+    font-size: 1.5em;
     cursor: pointer;
     text-decoration: none;
 }
@@ -59,14 +59,92 @@
     transition: ease-out 0.3s;
 }
 
+@media screen and (max-width: 1000px) {
+    .content-container {
+        height: 20em;
+        width: 40em;
+        padding: 1em;
+    }
+
+    .ticket-container h3 {
+        font-size: 2em;
+        margin-bottom: 0.5em;
+    }
+
+    .ticket-container p {
+        font-size: 3em;
+        margin-bottom: 1em;
+    }
+}
+
+@media screen and (max-width: 679px) {
+    .content-container {
+        height: 17em;
+        width: 30em;
+        padding: 1em;
+    }
+
+    .ticket-container h3 {
+        font-size: 1.6em;
+        margin-bottom: 1em;
+    }
+
+    .ticket-container p {
+        font-size: 3.5em;
+        margin-bottom: 0.5em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .content-container {
+        width: 20em;
+    }
+
+    .ticket-container h3 {
+        text-align: center;
+    }
+
+    .ticket-container p {
+        margin-bottom: 0.5em;
+    }
+
+    .button {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .content-container {
+        width: 15em;
+        height: 18em;
+    }
+
+    .ticket-container h3 {
+        font-size: 1.8em;
+        text-align: center;
+        margin-bottom: 0.5em;
+    }
+
+    .ticket-container p {
+        margin-bottom: 0.3em;
+    }
+
+    .button {
+        font-size: 1em;
+        padding: 1em 1.2em;
+    }
+}
+
+
 /* qr code generating page */
 .gen-main-container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: #075175;
+    overflow-y: auto;
 }
 
 .form-container {
@@ -74,11 +152,14 @@
     flex-direction: column;
     box-shadow: 0 0 0.3em 1px rgba(0, 0, 0, 0.5);
     background: #08608d;
-    height: 90vh;
-    width: 35vw;
+    height: auto;
+    width: 55em;
     border-radius: 15px;
-    padding: 2vw;
+    padding: 1.5em;
     align-items: center;
+    flex-grow: 0;
+    margin-bottom: 2em;
+    margin-top: 2em;
 }
 
 .input-align {
@@ -88,34 +169,34 @@
 }
 
 .form-container p {
-    font-size: 2vw;
-    margin-bottom: 30px;
+    font-size: 3em;
+    margin-bottom: 1em;
     align-self: center;
 }
 
 .form-container label {
-    font-size: 1.3vw;
+    font-size: 1.8em;
     margin-bottom: 10px;
 }
 
 .form-container input {
-    height: 4vh;
+    height: 1.6em;
     color: black;
-    font-size: 1.2vw;
-    border-radius: 1.5vh;
-    padding: 1vh;
-    margin-bottom: 4vh;
+    font-size: 1.5em;
+    border-radius: 1em;
+    margin-bottom: 1.5em;
+    padding: 0.5em;
 }
 
 .form-container button {
     background-color: #036edf;
     width: 40%;
     align-self: center;
-    padding: 1vw 2vw;
+    padding: 1em 1.2em;
     border: none;
     box-shadow: 0 0 0.3em 1px rgba(0, 0, 0, 0.5);
-    border-radius: 25px;
-    font-size: 3vh;
+    border-radius: 3em;
+    font-size: 1.5em;
     cursor: pointer;
     text-decoration: none;
 }
@@ -125,59 +206,263 @@
     transition: ease-out 0.3s;
 }
 
-.qr-code-container {
+.qr-code-container img {
+    width: 15em;
+    height: 15em;
+    border-radius: 20px;
+    margin-top: 1.5em;
     background: none;
 }
 
-.qr-code-container img {
-    width: 12vw;
-    height: 12vw;
-    border-radius: 20px;
-    margin-top: 2vh;
-    background: none;
+@media screen and (max-width: 910px) {
+    .form-container {
+        width: 40em;
+    }
+
+    .form-container p {
+        font-size: 2em;
+        margin-bottom: 0.5em;
+    }
+
+    .form-container label {
+        font-size: 1.5em;
+    }
+
+    .form-container input {
+        height: 1.5em;
+        font-size: 1.3em;
+        margin-bottom: 1.3em;
+        padding: 0.5em;
+    }
+
+}
+
+@media screen and (max-width: 670px) {
+    .form-container {
+        width: 30em;
+    }
+
+    .form-container p {
+        text-align: center;
+    }
+
+    .input-align {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .form-container {
+        width: 20em;
+    }
+
+    .input-align {
+        width: 100%;
+    }
+
+    .form-container p {
+        font-size: 1.5em;
+    }
+
+    .form-container label {
+        font-size: 1.1em;
+    }
+
+    .form-container button {
+        font-size: 1em;
+    }
+
+    .qr-code-container img {
+        width: 10em;
+        height: 10em;
+        border-radius: 20px;
+        margin-top: 1.5em;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .form-container {
+        width: 15em;
+    }
+
+    .form-container p {
+        margin-bottom: 1em;
+    }
+
+    .form-container label {
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+
+    .form-container button {
+        font-size: 1em;
+        width: 60%;
+    }
 }
 
 /*info page*/
+.info-main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #075175;
+    overflow-y: auto;
+}
 
 .info-container {
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 0.3em 1px rgba(0, 0, 0, 0.5);
     background: #08608d;
-    height: 70vh;
-    width: 35vw;
+    height: auto;
+    width: 50em;
     border-radius: 15px;
-    padding: 2vw;
+    padding: 2.5em;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 .ticket-info {
-    height: 45vh;
-    margin-bottom: 3vh;
+    margin-bottom: 2em;
 }
 
 .ticket-info h1 {
     color: #fff;
-    font-size: 2.2vw;
-    margin-bottom: 2vh;
+    font-size: 3em;
+    margin-bottom: 0.5em;
 }
 
 .ticket-info h2 {
     color: #fff;
     font-weight: 800;
-    margin-bottom: 0.5vh;
+    margin-bottom: 0.3em;
+    font-size: 2em;
 }
 
 .ticket-info p {
-    font-size: 1.2vw;
-    margin-bottom: 1.5vh;
+    font-size: 1.5em;
+    margin-bottom: 0.6em;
 }
 
 .user-info h1 {
     color: #fff;
-    font-size: 2.2vw;
-    margin-bottom: 2vh;
+    font-size: 3em;
+    margin-bottom: 0.5em;
 }
 
 .user-info p {
-    font-size: 1.8vw;
+    font-size: 2.3em;
+}
+
+@media screen and (max-width: 820px) {
+    .info-container {
+        width: 40em;
+    }
+
+    .ticket-info h1 {
+        font-size: 2.2em;
+    }
+
+    .ticket-info h2 {
+        font-weight: 800;
+        font-size: 1.5em;
+    }
+
+    .user-info h1 {
+        font-size: 2.2em;
+    }
+
+    .user-info p {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .info-container {
+        width: 30em;
+    }
+
+    .ticket-info h1 {
+        font-size: 1.8em;
+    }
+
+    .ticket-info h2 {
+        font-weight: 800;
+        font-size: 1.5em;
+    }
+
+    .ticket-info p {
+        font-size: 1.2em;
+    }
+
+    .user-info h1 {
+        font-size: 1.8em;
+    }
+
+    .user-info p {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .info-container {
+        width: 25em;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .info-container {
+        width: 20em;
+    }
+
+    .ticket-info h1 {
+        font-size: 1.8em;
+    }
+
+    .ticket-info h2 {
+        font-weight: 800;
+        font-size: 1.4em;
+    }
+
+    .ticket-info p {
+        font-size: 1.1em;
+    }
+
+    .user-info h1 {
+        font-size: 1.4em;
+    }
+
+    .user-info p {
+        font-size: 1.1em;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .info-container {
+        width: 15em;
+        padding: 1em;
+    }
+
+    .ticket-info h1 {
+        font-size: 1.8em;
+    }
+
+    .ticket-info h2 {
+        font-weight: 800;
+        font-size: 1.1em;
+    }
+
+    .ticket-info p {
+        font-size: 0.9em;
+    }
+
+    .user-info h1 {
+        font-size: 1.2em;
+    }
+
+    .user-info p {
+        font-size: 1em;
+    }
 }
