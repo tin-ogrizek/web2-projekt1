@@ -153,7 +153,7 @@
     box-shadow: 0 0 0.3em 1px rgba(0, 0, 0, 0.5);
     background: #08608d;
     height: auto;
-    width: 55em;
+    width: 40em;
     border-radius: 15px;
     padding: 1.5em;
     align-items: center;
@@ -169,8 +169,8 @@
 }
 
 .form-container p {
-    font-size: 3em;
-    margin-bottom: 1em;
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
     align-self: center;
 }
 
@@ -180,11 +180,11 @@
 }
 
 .form-container input {
-    height: 1.6em;
+    height: 1.5em;
     color: black;
     font-size: 1.5em;
     border-radius: 1em;
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
     padding: 0.5em;
 }
 
@@ -192,7 +192,7 @@
     background-color: #036edf;
     width: 40%;
     align-self: center;
-    padding: 1em 1.2em;
+    padding: 0.8em 1em;
     border: none;
     box-shadow: 0 0 0.3em 1px rgba(0, 0, 0, 0.5);
     border-radius: 3em;
@@ -214,28 +214,6 @@
     background: none;
 }
 
-@media screen and (max-width: 910px) {
-    .form-container {
-        width: 40em;
-    }
-
-    .form-container p {
-        font-size: 2em;
-        margin-bottom: 0.5em;
-    }
-
-    .form-container label {
-        font-size: 1.5em;
-    }
-
-    .form-container input {
-        height: 1.5em;
-        font-size: 1.3em;
-        margin-bottom: 1.3em;
-        padding: 0.5em;
-    }
-
-}
 
 @media screen and (max-width: 670px) {
     .form-container {
@@ -317,7 +295,7 @@
     box-shadow: 0 0 0.3em 1px rgba(0, 0, 0, 0.5);
     background: #08608d;
     height: auto;
-    width: 50em;
+    width: 40em;
     border-radius: 15px;
     padding: 2.5em;
     margin-top: 2em;
@@ -330,53 +308,30 @@
 
 .ticket-info h1 {
     color: #fff;
-    font-size: 3em;
-    margin-bottom: 0.5em;
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
 }
 
 .ticket-info h2 {
     color: #fff;
     font-weight: 800;
     margin-bottom: 0.3em;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 .ticket-info p {
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin-bottom: 0.6em;
 }
 
 .user-info h1 {
     color: #fff;
-    font-size: 3em;
-    margin-bottom: 0.5em;
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
 }
 
 .user-info p {
-    font-size: 2.3em;
-}
-
-@media screen and (max-width: 820px) {
-    .info-container {
-        width: 40em;
-    }
-
-    .ticket-info h1 {
-        font-size: 2.2em;
-    }
-
-    .ticket-info h2 {
-        font-weight: 800;
-        font-size: 1.5em;
-    }
-
-    .user-info h1 {
-        font-size: 2.2em;
-    }
-
-    .user-info p {
-        font-size: 2em;
-    }
+    font-size: 2.2em;
 }
 
 @media screen and (max-width: 660px) {

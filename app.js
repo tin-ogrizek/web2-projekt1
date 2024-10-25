@@ -26,10 +26,10 @@ const QRCode = require('qrcode');
 
 sequelize.sync()
     .then(() => {
-        console.log('Database & tables created!');
+        console.log('Baza spremna');
     })
     .catch(err => {
-        console.error('Error creating database:', err);
+        console.error('Error u dohvacanju baze:', err);
     });
 
 const checkJwt = jwt({
@@ -65,7 +65,7 @@ const getOAuthToken = async () => {
         const response = await axios.post(tokenUrl, data, config);
         return response.data.access_token;
     } catch (err) {
-        console.error('Error fetching OAuth token: ', err.response?.data || err.message);
+        console.error('Error dohvacanje OAuth tokena: ', err.response?.data || err.message);
         throw new Error('Failed to retrieve access token');
     }
 };
@@ -121,8 +121,8 @@ app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
     }
 
     const isNumeric = /^\d+$/.test(vatin);
-    if (!isNumeric) {
-        return res.status(400).json({ error: "OIB smije imati samo brojeve" });
+    if (!isNumeric || vatin.length !== 11) {
+        return res.status(400).json({ error: "OIB mora imati 11 brojeva" });
     }
 
     try {
@@ -192,7 +192,6 @@ app.get("/:id", requiresAuth(), async (req, res) => {
 });
 
 
-// pokretanje servera
 if (externalUrl) {
     const hostname = '0.0.0.0';
     app.listen(PORT, hostname, () => {
