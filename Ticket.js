@@ -1,4 +1,4 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('./db');
 
 const Ticket = sequelize.define('Ticket', {
@@ -21,7 +21,7 @@ const Ticket = sequelize.define('Ticket', {
     },
     created_at: {
         type: DataTypes.DATE,
-        defaultValue: Sequelize.literal('NOW()'),
+        allowNull: false,
     }
 }, {
     tableName: 'ticket_info',

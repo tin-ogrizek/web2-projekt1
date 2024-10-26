@@ -115,6 +115,7 @@ app.get("/generate", authenticateReq, checkJwt, (req, res) => {
 
 app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
     const { vatin, first_name, last_name } = req.body;
+    let userTime = new Date();
 
     if (!vatin || !first_name || !last_name) {
         return res.status(400).json({ error: "Nisu ispunjeni svi traženi podaci: OIB, Ime, Prezime" });
@@ -137,6 +138,7 @@ app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
             vatin,
             first_name,
             last_name,
+            created_at: userTime,
         });
 
         console.log(newQRcode);
