@@ -2,7 +2,9 @@ const express = require('express');
 const fs = require('fs');
 const https = require('https');
 const app = express();
-const PORT = 4090;
+
+const externalUrl = process.env.RENDER_EXTERNAL_URL;
+const PORT = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 4090;
 
 const axios = require('axios');
 const qs = require('qs');
@@ -24,10 +26,10 @@ const QRCode = require('qrcode');
 
 sequelize.sync()
     .then(() => {
-        console.log('Database & tables created!');
+        console.log('Baza spremna');
     })
     .catch(err => {
-        console.error('Error creating database:', err);
+        console.error('Error u dohvacanju baze:', err);
     });
 
 const checkJwt = jwt({
@@ -63,7 +65,7 @@ const getOAuthToken = async () => {
         const response = await axios.post(tokenUrl, data, config);
         return response.data.access_token;
     } catch (err) {
-        console.error('Error fetching OAuth token: ', err.response?.data || err.message);
+        console.error('Error dohvacanje OAuth tokena: ', err.response?.data || err.message);
         throw new Error('Failed to retrieve access token');
     }
 };
@@ -86,7 +88,7 @@ const config = {
     authRequired: false,
     idpLogout: true,
     secret: process.env.SECRET,
-    baseURL: `https://localhost:${PORT}`,
+    baseURL: externalUrl || `https://localhost:${PORT}`,
     clientID: process.env.CLIENT_ID,
     issuerBaseURL: `${process.env.AUTH_SERVER}`,
     clientSecret: process.env.CLIENT_SECRET,
@@ -140,14 +142,19 @@ app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
 
         console.log(newQRcode);
 
-        const qrCodeData = `https://localhost:4090/${newQRcode.id}`;
+        let qrCodeData;
+        if (externalUrl) {
+            qrCodeData = `${externalUrl}/${newQRcode.id}`;
+        } else {
+            qrCodeData = `https://localhost:4090/${newQRcode.id}`;
+        }
         const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
 
         return res.json({ ticketId: newQRcode.id, qrCodeImageUrl });
 
     } catch (err) {
         console.error('Error generiranje qr koda');
-        return res.status(500).json({ error: 'Greška prilikom generiranje QR koda' });
+        return res.status(500).json({ error: 'Greška prilikom generiranja QR koda' });
     }
 });
 
@@ -185,11 +192,18 @@ app.get("/:id", requiresAuth(), async (req, res) => {
     }
 });
 
-// pokretanje servera
-https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
-}, app)
-    .listen(PORT, function () {
-        console.log(`Server running at https://localhost:${PORT}/`);
+
+if (externalUrl) {
+    const hostname = '0.0.0.0';
+    app.listen(PORT, hostname, () => {
+        console.log(`Server locally running at http://${hostname}:${PORT}/ and from outside on ${externalUrl}`);
     });
+} else {
+    https.createServer({
+        key: fs.readFileSync('server.key'),
+        cert: fs.readFileSync('server.cert')
+    }, app)
+        .listen(port, function () {
+            console.log(`Server running at https://localhost:${PORT}/`);
+        });
+}

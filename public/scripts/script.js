@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const vatin = document.getElementById('vatin').value;
         const first_name = document.getElementById('first_name').value;
         const last_name = document.getElementById('last_name').value;
-
+        const user_timestamp = new Date().toISOString();
         try {
             const response = await fetch('/generate-qrcode', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ vatin, first_name, last_name }),
+                body: JSON.stringify({ vatin, first_name, last_name, user_timestamp }),
             });
 
             if (response.ok) {
