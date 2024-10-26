@@ -153,7 +153,7 @@ app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
 
     } catch (err) {
         console.error('Error generiranje qr koda');
-        return res.status(500).json({ error: 'Greška prilikom generiranje QR koda' });
+        return res.status(500).json({ error: 'Greška prilikom generiranja QR koda' });
     }
 });
 
