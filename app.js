@@ -2,9 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const https = require('https');
 const app = express();
-
-const externalUrl = process.env.RENDER_EXTERNAL_URL;
-const PORT = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 4090;
+const PORT = 4090;
 
 const axios = require('axios');
 const qs = require('qs');
@@ -26,10 +24,10 @@ const QRCode = require('qrcode');
 
 sequelize.sync()
     .then(() => {
-        console.log('Baza spremna');
+        console.log('Database & tables created!');
     })
     .catch(err => {
-        console.error('Error u dohvacanju baze:', err);
+        console.error('Error creating database:', err);
     });
 
 const checkJwt = jwt({
@@ -65,7 +63,7 @@ const getOAuthToken = async () => {
         const response = await axios.post(tokenUrl, data, config);
         return response.data.access_token;
     } catch (err) {
-        console.error('Error dohvacanje OAuth tokena: ', err.response?.data || err.message);
+        console.error('Error fetching OAuth token: ', err.response?.data || err.message);
         throw new Error('Failed to retrieve access token');
     }
 };
@@ -88,7 +86,7 @@ const config = {
     authRequired: false,
     idpLogout: true,
     secret: process.env.SECRET,
-    baseURL: externalUrl || `https://localhost:${PORT}`,
+    baseURL: `https://localhost:${PORT}`,
     clientID: process.env.CLIENT_ID,
     issuerBaseURL: `${process.env.AUTH_SERVER}`,
     clientSecret: process.env.CLIENT_SECRET,
@@ -114,8 +112,7 @@ app.get("/generate", authenticateReq, checkJwt, (req, res) => {
 });
 
 app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
-    const { vatin, first_name, last_name } = req.body;
-    let userTime = new Date();
+    const { vatin, first_name, last_name, user_timestamp } = req.body;
 
     if (!vatin || !first_name || !last_name) {
         return res.status(400).json({ error: "Nisu ispunjeni svi traženi podaci: OIB, Ime, Prezime" });
@@ -138,24 +135,19 @@ app.post("/generate-qrcode", authenticateReq, checkJwt, async (req, res) => {
             vatin,
             first_name,
             last_name,
-            created_at: userTime,
+            created_at: user_timestamp ? new Date(user_timestamp) : new Date(),
         });
 
         console.log(newQRcode);
 
-        let qrCodeData;
-        if (externalUrl) {
-            qrCodeData = `${externalUrl}/${newQRcode.id}`;
-        } else {
-            qrCodeData = `https://localhost:4090/${newQRcode.id}`;
-        }
+        const qrCodeData = `https://localhost:4090/${newQRcode.id}`;
         const qrCodeImageUrl = await QRCode.toDataURL(qrCodeData);
 
         return res.json({ ticketId: newQRcode.id, qrCodeImageUrl });
 
     } catch (err) {
         console.error('Error generiranje qr koda');
-        return res.status(500).json({ error: 'Greška prilikom generiranja QR koda' });
+        return res.status(500).json({ error: 'Greška prilikom generiranje QR koda' });
     }
 });
 
@@ -193,18 +185,11 @@ app.get("/:id", requiresAuth(), async (req, res) => {
     }
 });
 
-
-if (externalUrl) {
-    const hostname = '0.0.0.0';
-    app.listen(PORT, hostname, () => {
-        console.log(`Server locally running at http://${hostname}:${PORT}/ and from outside on ${externalUrl}`);
+// pokretanje servera
+https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+}, app)
+    .listen(PORT, function () {
+        console.log(`Server running at https://localhost:${PORT}/`);
     });
-} else {
-    https.createServer({
-        key: fs.readFileSync('server.key'),
-        cert: fs.readFileSync('server.cert')
-    }, app)
-        .listen(port, function () {
-            console.log(`Server running at https://localhost:${PORT}/`);
-        });
-}
